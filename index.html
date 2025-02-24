@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Validator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-glare"></div>
+            <h2>Credit Card Validator</h2>
+            <form id="creditCardForm">
+                <div class="form-group">
+                    <label for="cardNumber">Card Number:</label>
+                    <div class="input-container">
+                        <input type="text" id="cardNumber" class="card-number masked" maxlength="19" placeholder="1234 5678 9012 3456">
+                        <span class="toggle-visibility"><i class="fas fa-eye"></i></span>
+                    </div>
+                    <div class="card-type"></div>
+                </div>
+                <button type="submit">
+                    <span class="button-text">Validate Card</span>
+                </button>
+            </form>
+            <div id="result" class="result"></div>
+        </div>
+        <!-- Extra Features Section -->
+        <div class="extra-features">
+            <h3>Credit Card Tips</h3>
+            <ul>
+                <li>Always review your monthly statement for unauthorized charges.</li>
+                <li>Keep your card information secure and don't share it online.</li>
+                <li>Use virtual card numbers for safer online shopping.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="credits">
+        Created by <strong>JASWANTHSANJAY NEKKKANTI</strong>
+    </div>
+    <a href="https://github.com/jaswanthsanjay88" class="github-btn" target="_blank">
+        <i class="fab fa-github"></i>
+        <span>Star on GitHub</span>
+        <span class="stars">⭐</span>
+    </a>
+    <script src="script.js"></script>
+    <script src="interactive.js"></script>
+</body>
+</html>
+

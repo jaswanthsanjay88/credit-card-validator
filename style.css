@@ -1,0 +1,713 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #000428, #004e92);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    perspective: 1000px;
+    backdrop-filter: blur(8px) saturate(1.5);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.card {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.2),
+        rgba(255, 255, 255, 0.1)
+    );
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: white;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.2),
+        0 15px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(50%, -50%);
+}
+
+.card-glare {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(
+        circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.1) 0%,
+        transparent 80%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.card:hover .card-glare {
+    opacity: 1;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.form-group::before {
+    display: none;
+}
+
+.card-type {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.9);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+/* Card type specific styles */
+.card-type.visa { color: #1a1f71; }
+.card-type.mastercard { color: #eb001b; }
+.card-type.amex { color: #2e77bc; }
+.card-type.discover { color: #ff6000; }
+.card-type.diners { color: #004a97; }
+.card-type.jcb { color: #0b4ea2; }
+.card-type.maestro { color: #0099df; }
+
+label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    font-size: 18px;
+    color: white;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+button {
+    background: linear-gradient(45deg, #00d2ff, #3a47d5);
+    color: white;
+    font-weight: 600;
+    padding: 15px 30px;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    display: block;
+    margin: 0 auto;
+    min-width: 250px;
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.3);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+    background: linear-gradient(45deg, #3a47d5, #00d2ff);
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #ffffff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loading 0.8s linear infinite;
+    display: none;
+}
+
+.loading.active::after {
+    display: block;
+}
+
+@keyframes loading {
+    to { transform: rotate(360deg); }
+}
+
+/* Remove old popup styles */
+.popup, .popup-overlay, .popup-container {
+    display: none;
+}
+
+/* Add new validation status styles */
+.validation-status {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 500;
+    transform: scale(0.95);
+    opacity: 0;
+    transition: all 0.3s ease;
+    position: relative; /* added */
+    z-index: 1000; /* added */
+    display: none; /* Hide the validation status */
+}
+
+.validation-status.show {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.validation-status.valid {
+    background: linear-gradient(145deg, #00804b, #006400);
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 128, 0, 0.2);
+}
+
+.validation-status.invalid {
+    background: linear-gradient(145deg, #dc0000, #960000);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.2);
+}
+
+/* Popup styles */
+.popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* dark semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+    pointer-events: auto;  /* allow child clicks */
+}
+
+.popup {
+    background: linear-gradient(145deg, #ffffff, #f2f2f2);
+    color: #333;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px 35px;
+    border-radius: 8px;
+    min-width: 320px;
+    text-align: center;
+    z-index: 999999;
+    display: none;
+    opacity: 0;
+    transform: none;  /* Remove offset transform */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: auto; /* Ensure the popup itself captures pointer events */
+}
+.popup.show {
+    display: block;
+    opacity: 1;
+    transform: none;  /* Ensure no offset is applied */
+}
+.popup.valid {
+    border-color: #007b5e;
+}
+.popup.invalid {
+    border-color: #a80000;
+}
+.popup .popup-icon {
+    font-size: 56px;
+    margin-bottom: 15px;
+}
+.popup .popup-message {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Redesign close button */
+.popup button.popup-close {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+.popup button.popup-close:hover {
+    background: #0056b3;
+}
+
+/* Refine unified popup styles for a professional look */
+.popup {
+    background: linear-gradient(145deg, #ffffff, #f2f2f2);
+    color: #333;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 25px 35px;
+    border-radius: 8px;
+    min-width: 320px;
+    text-align: center;
+    z-index: 999999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.popup.show {
+    display: block;
+    opacity: 1;
+    transform: none;  /* Ensure no offset is applied */
+}
+
+/* Refine close button styling */
+.popup button.popup-close {
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+.popup button.popup-close:hover {
+    background: #e60000;
+}
+
+/* Ensure .validation-status is not used if using unified popup */
+/* Remove old result styles */
+.result {
+    display: none;
+}
+
+/* Reset popup styles completely */
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    min-width: 300px;
+    text-align: center;
+    z-index: 100000;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#popup.valid {
+    background: linear-gradient(145deg, #00804b, #006400);
+}
+
+#popup.invalid {
+    background: linear-gradient(145deg, #dc0000, #960000);
+}
+
+#popup-content {
+    color: white;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+#popup-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+#popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 99999;
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .card {
+        padding: 25px;
+        margin: 10px;
+    }
+    
+    h2 {
+        font-size: 24px;
+    }
+    
+    input {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    button {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .card-brand {
+        right: 20px;
+        top: 20px;
+        font-size: 20px;
+    }
+}
+
+/* Enhanced mobile responsiveness */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px;
+        margin: 10px;
+        width: 95%;
+    }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .popup {
+        width: 90%;
+        margin: 0 10px;
+        padding: 20px;
+    }
+
+    /* Larger touch targets for mobile */
+    .toggle-visibility {
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    button {
+        min-height: 44px; /* iOS minimum touch target */
+        padding: 12px 20px;
+    }
+
+    input {
+        font-size: 16px; /* Prevent iOS zoom on focus */
+        min-height: 44px;
+    }
+
+    /* Better mobile scrolling */
+    .extra-features {
+        max-height: 30vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Add touch-specific highlights */
+@media (hover: none) {
+    button:active {
+        opacity: 0.7;
+    }
+
+    .toggle-visibility:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+}
+
+/* Fix iOS input styles */
+input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background: linear-gradient(45deg, #000428, #004e92);
+    }
+
+    .card {
+        background: linear-gradient(
+            135deg,
+            rgba(0, 0, 0, 0.4),
+            rgba(0, 0, 0, 0.2)
+        );
+    }
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(76, 0, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(0, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 0% 100%, rgba(255, 0, 255, 0.15) 0%, transparent 50%);
+    filter: blur(20px);
+    transition: all 0.5s ease;
+}
+
+.cursor-dot,
+.cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Remove water effect styles */
+.water-effect {
+    display: none;
+}
+
+.credits {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 25px;
+    border-radius: 50px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-size: 14px;
+    letter-spacing: 1px;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.credits:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+.credits strong {
+    color: #00d2ff;
+    font-weight: 600;
+}
+
+/* GitHub button styles */
+.github-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #24292e, #2b3137);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.github-btn i {
+    font-size: 20px;
+}
+
+.github-btn .stars {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+.github-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(45deg, #2b3137, #24292e);
+}
+
+.github-btn:hover .stars {
+    animation: starPulse 0.5s ease;
+}
+
+/* Corrected starPulse keyframes */
+@keyframes starPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.extra-features {
+    margin-top: 20px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+}
+.extra-features h3 {
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #fff;
+}
+.extra-features ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+.extra-features li {
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #e0e0e0;
+}
+
+/* Mask digits after the first 4 in a .card-number element */
+.card-number {
+    position: relative;
+    overflow: hidden;
+    -webkit-text-security: none; /* plain text when unmasked */
+    text-security: none;
+}
+.card-number.masked {
+    -webkit-text-security: disc; /* shows dots with native spacing */
+    text-security: disc;
+}
+
+/* New styles for input container and toggle button */
+.input-container {
+    position: relative;
+}
+.input-container input {
+    padding-right: 45px; /* increased right padding for icon space */
+}
+.toggle-visibility {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.toggle-visibility:hover {
+    color: #00d2ff;
+}
