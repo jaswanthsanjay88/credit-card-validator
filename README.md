@@ -106,7 +106,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 ## 👨‍💻 Author & Maintainer
 
 **JASWANTHSANJAY NEKKKANTI**
-- 🌐 [Portfolio](https://jaswanthsanjay.dev)
+- 🌐 [Portfolio](https://jaswanthsanjay.free.nf)
 - 💼 [LinkedIn](https://linkedin.com/in/jaswanthsanjay-nekkanti-3a84a5316/)
 - 🐙 [GitHub](https://github.com/jaswanthsanjay88)
 
